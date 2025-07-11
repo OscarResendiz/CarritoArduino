@@ -40,7 +40,8 @@ class MainActivity2 : AppCompatActivity() {
             while(continuar)
             {
                 Thread.sleep(1000)
-                consola.text=bluetoothJhr.Rx()
+                var texto :String =bluetoothJhr.Rx()
+                consola.text=texto
             }
         }
 

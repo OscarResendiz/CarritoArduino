@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<!-- saved from url=(0116)https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-coche-controlado-por-bluetooth-arduino-aplicacion-android -->
+<html lang="es" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coche-robot controlado por bluetooth con Arduino UNO</title>
+    <meta name="description" content="En este tutorial construiremos un robot móvil controlado por Bluetooth desde nuestro móvil a través de una aplicación de Android.">
+
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-coche-controlado-por-bluetooth-arduino-aplicacion-android">
+
+<meta name="author" content="El octavo bit">
+<meta property="og:locale" content="es_ES">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="El Octavo Bit">
+
+<meta property="og:url" content="https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-coche-controlado-por-bluetooth-arduino-aplicacion-android">
+
+<meta property="og:title" content="Coche-robot controlado por bluetooth con Arduino UNO">
+<meta property="og:description" content="En este tutorial construiremos un robot móvil controlado por Bluetooth desde nuestro móvil a través de una aplicación de Android.">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="eloctavobit">
+
+    <meta name="twitter:url" content="https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-coche-controlado-por-bluetooth-arduino-aplicacion-android">
+
+<meta name="twitter:title" content="Coche-robot controlado por bluetooth con Arduino UNO">
+<meta name="twitter:description" content="En este tutorial construiremos un robot móvil controlado por Bluetooth desde nuestro móvil a través de una aplicación de Android.">
+
+    <link rel="icon" type="image/png" sizes="56x56" href="https://eloctavobit.com/imagenes/fav-icon/icon.png">
+
+    <link rel="stylesheet" href="./Coche-robot controlado por bluetooth con Arduino UNO_files/app.min.css">
+    <link rel="stylesheet" type="text/css" href="./Coche-robot controlado por bluetooth con Arduino UNO_files/style.css">
+    <link rel="stylesheet" href="./Coche-robot controlado por bluetooth con Arduino UNO_files/numeros.css">
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script type="text/javascript" async="" src="./Coche-robot controlado por bluetooth con Arduino UNO_files/analytics.js.descarga"></script><script type="text/javascript" async="" src="./Coche-robot controlado por bluetooth con Arduino UNO_files/js"></script><script async="" src="./Coche-robot controlado por bluetooth con Arduino UNO_files/js(1)"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-167436765-1');
+</script>
+</head>
+
+<body>
+
+    <header class="cabecera">
+    <div class="container-xl">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 border-bottom">
+            <div class="col-2 col-md-4">
+                <a class="btn btn-primary" data-bs-toggle="offcanvas" href="https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-coche-controlado-por-bluetooth-arduino-aplicacion-android#offcanvasMenu" role="button" aria-controls="offcanvasMenu">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z">
+                        </path>
+                    </svg>
+                    <span class="menu">Menu</span>
+                </a>
+            </div>
+            <div class="col-10 col-md-4">
+                <div class="logo">
+                    <a href="https://eloctavobit.com/">
+                                                <img class="img-fluid" src="./Coche-robot controlado por bluetooth con Arduino UNO_files/logo-octavo_bit.png" alt="Proyectos, tutoriales y ejemplos para Arduino | El Octavo Bit" loading="lazy" width="400" height="134">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 d-none d-md-block">
+                <form class="d-flex" action="https://eloctavobit.com/buscar" method="get">
+                    <input name="s" id="buscar" class="form-control me-1" type="search" placeholder="Buscar" aria-label="buscar">
+                    <button class="btn btn-primary" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+        <!-- menu -->
+        <nav class="menu-header d-none d-sm-block"><a href="https://eloctavobit.com/arduino">Arduino</a><a href="https://eloctavobit.com/robotica-educativa">Robotica Educativa</a><a href="https://eloctavobit.com/glosario">Glosario</a></nav>    </div>
+
+</header>
+    
+    <div class="container-xl">
+        <div class="row migas">
+            <ol itemscope="" itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><a itemprop="item" href="https://eloctavobit.com/"><span itemprop="name">El Octavo Bit</span></a><meta itemprop="position" content="1"></li><li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><span class="separa"> / </span><a itemscope="" itemtype="https://schema.org/WebPage" itemprop="item" itemid="https://eloctavobit.com/arduino" href="https://eloctavobit.com/arduino"><span itemprop="name">Arduino</span></a><meta itemprop="position" content="2"></li><li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><span class="separa"> / </span><a itemscope="" itemtype="https://schema.org/WebPage" itemprop="item" itemid="https://eloctavobit.com/proyectos-tutoriales-arduino" href="https://eloctavobit.com/proyectos-tutoriales-arduino"><span itemprop="name">Proyectos para Arduino</span></a><meta itemprop="position" content="3"></li><li itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><span class="separa"> / </span><span itemprop="name">¿Cómo hacer un coche controlado por bluetooth con Arduino?</span><meta itemprop="position" content="4"></li></ol>        </div>
+    </div>
+
+<main class="container-xl articulo">
+    <div class="sup">
+        <h1 class="fw-1 titulo">¿Cómo hacer un coche controlado por bluetooth con Arduino?</h1>
+        <p class="fecha">
+            <span class="date"><time itemprop="datePublished" datetime="2020-08-06 19:04:40"> 6 agosto, 2020</time></span>
+                            <span class="date">| Actualizado: <time datetime="2023-06-30 09:19:30">30 junio, 2023</time></span>
+                                                                                    <br>
+                        <a href="https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-coche-controlado-por-bluetooth-arduino-aplicacion-android#comentarios" aria-label="Comentarios">
+                            <span class="me-2">Comentarios: 4</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-text" viewBox="0 0 16 16">
+                                <path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105"></path>
+                                <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8m0 2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5"></path>
+                            </svg>
+                        </a>
+                                                        </p>
+    </div>
+
+                        <figure>
+                <img class="img-fluid" src="./Coche-robot controlado por bluetooth con Arduino UNO_files/1685727928_65b0cf58cdb2f64639ee.webp" width="800" height="500" alt="¿Cómo hacer un coche controlado por bluetooth con Arduino?">
+                <figcaption>
+                    ¿Cómo hacer un coche controlado por bluetooth con Arduino?                </figcaption>
+            </figure>
+            
+
+    <div class="row justify-content-center mt-5">
+        
+        <div class="col-md-7 contenido">
+            <p>En este tutorial construiremos un robot móvil controlado por Bluetooth desde nuestro móvil a través de una aplicación de Android.</p>
+<p>El montaje y la puesta en funcionamiento de este pequeño coche es sencillo puesto que es el resultado de la combinación de dos tutoriales que ya hemos visto: <a href="https://eloctavobit.com/proyectos-tutoriales-arduino/funcionamiento-del-modulo-controlador-de-motores-l298n">funcionamiento del módulo controlador de motores L298N</a> y tutorial básico de <a href="https://eloctavobit.com/proyectos-tutoriales-arduino/tutorial-basico-para-conectar-modulo-bluetooth-hc-06-en-arduino">uso del módulo bluetooth HC-06 en Arduino</a>. Aconsejamos que reviséis esos dos proyectos para conocer anticipadamente el funcionamiento del controlador de motores L298N y cómo conectar el módulo de bluetooth y configurarlo.</p>
+<p>Material necesario:</p>
+<ul>
+<li>Placa Arduino</li>
+<li>Chasis rueda loca.</li>
+<li>2 ruedas.</li>
+<li>2 motores reductores TT de doble eje.</li>
+<li>Módulo controlador de motores L298N.</li>
+<li>Módulo bluetooth HC-06.</li>
+<li>Interruptor ON/OFF de 2 pines.</li>
+<li>Portapilas para la alimentación de la placa de Arduino y 4 pilas AA.</li>
+<li>Pila de 9V para el controlador y motores.</li>
+<li>Cables. Tornillos y tuercas.</li>
+</ul>
+<p><strong>Esquema:</strong></p>
+<div class="imagen">
+<figure><img class="foto-art" src="./Coche-robot controlado por bluetooth con Arduino UNO_files/647a2aee156c9.webp" alt="Esquema para el montaje de robot controlado por Bluetooth con una aplicación Android" width="1000" height="616" loading="lazy"></figure>
+</div>
+<p><strong>Montaje </strong></p>
+<p><strong>Paso 1. Conectamos los cables en los motores y los sujetamos al chasis.</strong> Primero conectamos los cables rojos y negros a los dos motores que tenemos. Los podemos soldar a los bornes metálicos de los motores o utilizar cinta aislante, asegurándonos de que el contacto con el borne es correcto. Para sujetar los motores en el chasis utilizamos las piezas rectangulares y los tornillos.</p>
+<div class="imagen">
+<figure><img class="foto-art" src="./Coche-robot controlado por bluetooth con Arduino UNO_files/647a2b13a5773.webp" alt="Colocación de los motores al chasis del robot" width="800" height="598" loading="lazy">
+<figcaption>Montaje del chasis con los dos motores eductores.</figcaption>
+</figure>
+</div>
+<p><strong>Paso 2. Montamos la rueda loca y el soporte para las pilas.</strong> La rueda loca es una rueda sin tracción que gira libremente; el soporte de pilas lo utilizaremos para colocar las cuatro pilas AA encargadas de alimentar la placa Arduino.</p>
+<div class="imagen">
+<figure><img class="foto-art" src="./Coche-robot controlado por bluetooth con Arduino UNO_files/647a2b465dae7.webp" alt="Colocación en el chasis de la rueda loca y el portapilas" width="800" height="610" loading="lazy">
+<figcaption>Colocamos en el chasis la rueda loca y el portapilas.</figcaption>
+</figure>
+</div>
+<p><strong>Paso 3. Colocamos el interruptor.</strong> El interruptor lo usaremos para el módulo controlador de motores L298N. Podemos insertarlo en el hueco que hay en medio del chasis.</p>
+<div class="imagen">
+<figure><img class="foto-art" src="./Coche-robot controlado por bluetooth con Arduino UNO_files/647a2b7bee096.webp" alt="En el paso 3 colocamos el interruptor que nos va a permitir dar energia al controlador de motores." width="800" height="533" loading="lazy">
+<figcaption>Interruptor con sus cables colocado en el chasis.</figcaption>
+</figure>
+</div>
+<p><strong>Paso 4. Colocar la placa de Arduino.</strong></p>
+<div class="imagen">
+<figure><img class="foto-art" src="./Coche-robot controlado por bluetooth con Arduino UNO_files/647a2bafc0f6d.webp" alt="Colocamos la placa Arduino en el chasis." width="800" height="488" loading="lazy">
+<figcaption>Chasis con la placa Arduino colocada en la zona delantera.</figcaption>
+</figure>
+</div>
+<p><strong>Paso 5. Colocar el módulo controlador de motores L298N en la zona trasera del chasis.</strong> Una vez colocado, unimos los cables de los motores a los correspondientes pines del módulo.</p>
+<div class="imagen">
+<figure><img class="foto-art" src="./Coche-robot controlado por bluetooth con Arduino UNO_files/647a2bdece056.webp" alt="Chasis con el controlador L298N en la zona trasera." width="800" height="533" loading="lazy">
+<figcaption>Chasis con el controlador L298N para los motores.</figcaption>
+</figure>
+</div>
+<p><strong>Paso 6. Colocamos la pila de 9V que alimentará al módulo controlador.</strong></p>
+<div class="imagen">
+<figure><img class="foto-art" src="./Coche-robot controlado por bluetooth con Arduino UNO_files/647a2c1098fb8.webp" alt="Pila de 9V para alimentar el controlador de los motores" width="800" height="533" loading="lazy">
+<figcaption>Pila de 9V para alimentar el módulo controlador.</figcaption>
+</figure>
+</div>
+<p>Utilizaremos la pila de 9 V como fuente de alimentación del módulo L298N; el cable rojo irá a la entrada de alimentación del módulo y el cable de tierra al GND del controlador y al GND de la placa Arduino.</p>
+<p><strong>Paso 7. Conectamos la placa de Arduino con el módulo controlador L298N.</strong></p>
+<p>Los pines van conectados en el siguiente orden:</p>
+<ul>
+<li>ENA –&gt; Pin 10 (cable verde en la imagen). Debemos recordar que los pines ENA y ENB son los que controlan la velocidad de giro.</li>
+<li>ENB –&gt; Pin 5 (cable verde)</li>
+<li>IN1 –&gt; Pin 9 (cable naranja)</li>
+<li>IN2 –&gt; Pin 8 (cable azul)</li>
+<li>IN3 –&gt; Pin 7 (cable azul)</li>
+<li>IN4 –&gt; Pin 6 (cable naranja)</li>
+</ul>
+<div class="imagen">
+<figure><img class="foto-art" src="./Coche-robot controlado por bluetooth con Arduino UNO_files/647a2c4792b2e.webp" alt="Colocamos los cables que conectan la placa Arduino y el controlador L298N." width="800" height="440" loading="lazy">
+<figcaption>Colocamos los bables que conectan la placa y el controlador.</figcaption>
+</figure>
+</div>
+<p><strong>Paso 8. Probamos los motores.</strong> Una vez que tenemos en el chasis: la placa de Arduino, el controlador L298N, la pila de 9V para alimentar el controlador, el portapilas de 4 pilas para alimentar el Arduino, los motores con sus respectivas ruedas y el interruptor montado; podemos probar los motores y si el giro de las ruedas es el correcto.</p>
+<div class="imagen">
+<figure><img class="foto-art" src="./Coche-robot controlado por bluetooth con Arduino UNO_files/647a2c819f2e2.webp" alt="Chasis completo con la placa Arduino, controlador L298N, portapilas, y pila de 9V." width="800" height="662" loading="lazy"></figure>
+</div>
+<p>Este código para probar el giro de los motores no incluye la biblioteca, sin embargo, si preferís utilizar la biblioteca, mirad el tutorial funcionamiento del módulo controlador de motores L29.</p>
+<pre class="line-numbers"><div aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><code>// Motor 1
+int ENA = 10;
+int IN1 = 9;
+int IN2 = 8;
+
+// Motor 2
+int ENB = 5;
+int IN3 = 7;
+int IN4 = 6;
+
+void setup() {
+ pinMode (ENA, OUTPUT);
+ pinMode (ENB, OUTPUT);
+ pinMode (IN1, OUTPUT);
+ pinMode (IN2, OUTPUT);
+ pinMode (IN3, OUTPUT);
+ pinMode (IN4, OUTPUT);  
+}
+
+void loop() {
+  Adelante();
+  delay(5000);
+  Atras();
+  delay(5000);
+  Derecha();
+  delay(5000);
+  Izquierda();
+  delay(5000);
+  Parar();
+  delay(5000);
+}
+
+void Adelante (){
+ //Dirección motor A
+ digitalWrite (IN1, LOW);
+ digitalWrite (IN2, HIGH);
+ analogWrite (ENA, 100); //Velocidad motor A
+ //Dirección motor B
+ digitalWrite (IN3, HIGH);
+ digitalWrite (IN4, LOW);
+ analogWrite (ENB, 100); //Velocidad motor B
+}
+
+void Derecha (){
+ //Dirección motor A
+ digitalWrite (IN1, HIGH);
+ digitalWrite (IN2, LOW);
+ analogWrite (ENA, 255); //Velocidad motor A
+ //Dirección motor B
+ digitalWrite (IN3, HIGH);
+ digitalWrite (IN4, LOW);
+ analogWrite (ENB, 255); //Velocidad motor A
+}
+
+void Izquierda (){
+ //Dirección motor A
+ digitalWrite (IN1, LOW);
+ digitalWrite (IN2, HIGH);
+ analogWrite (ENA, 255); //Velocidad motor A
+ //Dirección motor B
+ digitalWrite (IN3, LOW);
+ digitalWrite (IN4, HIGH);
+ analogWrite (ENB, 255); //Velocidad motor A
+}
+
+void Atras (){
+ //Dirección motor A
+ digitalWrite (IN1, HIGH);
+ digitalWrite (IN2, LOW);
+ analogWrite (ENA, 255); //Velocidad motor A
+ //Dirección motor B
+ digitalWrite (IN3, LOW);
+ digitalWrite (IN4, HIGH);
+ analogWrite (ENB, 255); //Velocidad motor B
+}
+
+void Parar (){
+ //Dirección motor A
+ digitalWrite (IN1, LOW);
+ digitalWrite (IN2, LOW);
+ analogWrite (ENA, 0); //Velocidad motor A
+ //Dirección motor B
+ digitalWrite (IN3, LOW);
+ digitalWrite (IN4, LOW);
+ analogWrite (ENB, 0); //Velocidad motor A
+}</code></pre>
+<p>Cada función de movimiento está separada, hay que ir probándolas y comprobando si se corresponden con el movimiento que deseamos, en caso de que no sea así, habría que probar cambiando los cables de conexión del motor o la sección de código correspondiente. IN1 e IN2 son los responsables del giro del motor. Si IN1 está configurado como HIGH e IN2 como LOW, para cambiar el sentido de giro, invertimos la configuración, IN1 cambia a LOW e IN2 a HIGH.</p>
+<p><strong>Paso 9. Conectamos el módulo de bluetooth.</strong></p>
+<div class="imagen">
+<figure><img class="foto-art" src="./Coche-robot controlado por bluetooth con Arduino UNO_files/647a2cc22b656.webp" alt="Conexión del módulo bluetooth" width="800" height="623" loading="lazy">
+<figcaption>Conexión del módulo bluetooth.</figcaption>
+</figure>
+</div>
+<p>Realizamos las conexiones entre la placa y el módulo de bluetooth:</p>
+<ul>
+<li>VCC –&gt; al pin de 5V de Arduino (cable rojo en la imagen)</li>
+<li>GND –&gt; al pin GND de la placa (cable negro)</li>
+<li>TXD –&gt; al pin 4 digital de la placa (cable amarillo)</li>
+<li>RXD –&gt; al pin 2 digital de la placa (cable blanco)</li>
+</ul>
+<p>Antes de probar el módulo bluetooth, configuramos la aplicación. La aplicación que vamos a utilizar ya ha sido usada anteriormente en el tutorial: Tutorial básico de uso del módulo bluetooth HC-06 en Arduino. La descargamos de Google Play si no la tenemos instalada: <a href="https://play.google.com/store/apps/details?id=com.giumig.apps.bluetoothserialmonitor&amp;hl=es" target="_blank" rel="noopener">Arduino bluetooth controller</a>. Para configurar la aplicación, primero vinculamos el móvil al módulo, abrimos la aplicación, y veremos:</p>
+<div class="imagen">
+<figure><img class="foto-art" src="./Coche-robot controlado por bluetooth con Arduino UNO_files/647a2cf391b7a.webp" alt="Capturas de pantalla de la aplicación android utilizada para el móvil. " width="700" height="615" loading="lazy">
+<figcaption>Capturas de pantalla de la aplicación andorid utilizada para el móvil.</figcaption>
+</figure>
+</div>
+<p>Aparecerá en la pantalla el nombre del dispositivo, por defecto será HC-06 si estáis utilizando el mismo que en el tutorial. En este caso concreto, aparece mibluetooth puesto que yo he cambiado la configuración. La contraseña por defecto es 1234. Una vez conectado, escogemos el modo «Controller mode».</p>
+<div class="imagen">
+<figure><img class="foto-art" src="./Coche-robot controlado por bluetooth con Arduino UNO_files/647a2d312c131.webp" alt="Pantalla con los mandos de control" width="700" height="528" loading="lazy">
+<figcaption>Pantalla con los mandos de control</figcaption>
+</figure>
+</div>
+<p>Para controlar nuestro coche utilizaremos las flechas de la izquierda, habrá que configurarlas, para ello presionamos sobre el icono de la rueda en la zona superior derecha y se abrirá una ventana donde podremos ir configurando cada flecha con las letras que corresponden con la imagen de la derecha. En este caso lo he configurado con las letras: <strong>i</strong>, izquierda, <strong>a</strong>, avance, <strong>d</strong>, derecha,<strong> r</strong>, retroceso y <strong>p</strong> parada.</p>
+<p>Añadimos el código necesario para controlar el módulo de bluetooth, utilizamos la librería SoftwareSerial para tener libres los pines digitales 0 y 1 de la placa Arduino:</p>
+<pre class="line-numbers"><div aria-hidden="true"><span></span><span></span></div><code>#include "SoftwareSerial.h"
+SoftwareSerial BT(4,2);</code></pre>
+<p>En la función setup() iniciamos la comunicación serial y con el puerto BT:</p>
+<pre class="line-numbers"><div aria-hidden="true"><span></span><span></span></div><code>Serial.begin(9600);
+BT.begin(9600);</code></pre>
+<p>Y modificamos la función loop() para controlar nuestro coche. Según el botón que presionemos en nuestro móvil, Arduino realizará el movimiento correspondiente:</p>
+<pre class="line-numbers"><div aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><code>void loop() {
+  if (BT.available()){
+    char dato=BT.read();
+
+    switch(dato){
+      case 'a':
+        Adelante();
+        break;
+      case 'r':
+        Atras();
+        break;
+      case 'd':
+        Derecha();
+        break;
+      case 'i':
+        Izquierda();
+        break;
+      case 'p':
+        Parar();
+        break;
+    }    
+  }
+}</code></pre>
+<p>El código completo sería:</p>
+<pre class="line-numbers"><div aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><code>#include "SoftwareSerial.h"
+SoftwareSerial BT(4,2); // RX, TX recorder que se cruzan
+// Motor 1
+int ENA = 10;
+int IN1 = 9;
+int IN2 = 8;
+
+// Motor 2
+int ENB = 5;
+int IN3 = 7;
+int IN4 = 6;
+
+void setup() {
+ Serial.begin(9600);
+ BT.begin(9600);
+ pinMode (ENA, OUTPUT);
+ pinMode (ENB, OUTPUT);
+ pinMode (IN1, OUTPUT);
+ pinMode (IN2, OUTPUT);
+ pinMode (IN3, OUTPUT);
+ pinMode (IN4, OUTPUT);  
+}
+
+void loop() {
+  if (BT.available()){
+    char dato=BT.read();
+
+    switch(dato){
+      case 'a':
+        Adelante();
+        break;
+      case 'r':
+        Atras();
+        break;
+      case 'd':
+        Derecha();
+        break;
+      case 'i':
+        Izquierda();
+        break;
+      case 'p':
+        Parar();
+        break;
+    }    
+  }
+}
+
+void Adelante (){
+ //Dirección motor A
+ digitalWrite (IN1, LOW);
+ digitalWrite (IN2, HIGH);
+ analogWrite (ENA, 255); //Velocidad motor A
+ //Dirección motor B
+ digitalWrite (IN3, HIGH);
+ digitalWrite (IN4, LOW);
+ analogWrite (ENB, 255); //Velocidad motor B
+}
+
+void Derecha (){
+ //Dirección motor A
+ digitalWrite (IN1, HIGH);
+ digitalWrite (IN2, LOW);
+ analogWrite (ENA, 255); //Velocidad motor A
+ //Dirección motor B
+ digitalWrite (IN3, HIGH);
+ digitalWrite (IN4, LOW);
+ analogWrite (ENB, 255); //Velocidad motor A
+}
+
+void Izquierda (){
+ //Dirección motor A
+ digitalWrite (IN1, LOW);
+ digitalWrite (IN2, HIGH);
+ analogWrite (ENA, 255); //Velocidad motor A
+ //Dirección motor B
+ digitalWrite (IN3, LOW);
+ digitalWrite (IN4, HIGH);
+ analogWrite (ENB, 255); //Velocidad motor A
+}
+
+void Atras (){
+ //Dirección motor A
+ digitalWrite (IN1, HIGH);
+ digitalWrite (IN2, LOW);
+ analogWrite (ENA, 255); //Velocidad motor A
+ //Dirección motor B
+ digitalWrite (IN3, LOW);
+ digitalWrite (IN4, HIGH);
+ analogWrite (ENB, 255); //Velocidad motor B
+}
+
+void Parar (){
+ //Dirección motor A
+ digitalWrite (IN1, LOW);
+ digitalWrite (IN2, LOW);
+ analogWrite (ENA, 0); //Velocidad motor A
+ //Dirección motor B
+ digitalWrite (IN3, LOW);
+ digitalWrite (IN4, LOW);
+ analogWrite (ENB, 0); //Velocidad motor A
+}</code></pre>        </div>
+    </div>
+                                        <div class="row justify-content-center">
+                    <a name="comentarios"></a>
+                    <div class="col-md-7 mt-5 mb-5 btn-comentarios">
+                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#-offcanvasComent" aria-controls="-offcanvasComent">Comentarios - 4</button>
+                    </div>
+
+                                    </div>
+                        </main>
+<!-- fin del articulo -->
+
+<!-- si es una pagina que no salga articulos relacionados y comentarios  -->
+            <!-- articulos relacionados -->
+        <section class="container-xl apartado">
+            <h3 class="art_int">Artículos que te pueden interesar</h3>
+            <div class="row mt-4">
+                                                        <div class="col-md-6 col-lg-3">
+                        <div class="card tope">
+
+                            <figure>
+                                <a href="https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-una-radio-fm-con-arduino-y-el-modulo-tea5767" aria-label="Hacer una radio FM con Arduino y el módulo TEA5767">
+                                    <img src="./Coche-robot controlado por bluetooth con Arduino UNO_files/1685817351_2ed3a4b1554f9083d813.webp" class="card-img-top img-fluid" loading="lazy" width="800" height="500" alt="Radio FM con Arduino y el módulo TEA5767">
+                                    <figcaption>Hacer una radio FM con Arduino y el módulo TEA5767</figcaption>
+                                </a>
+                            </figure>
+
+                            <div class="card-body">
+                                <h3 class="card-title fs-5"><a href="https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-una-radio-fm-con-arduino-y-el-modulo-tea5767">Hacer una radio FM con Arduino y el módulo TEA5767</a></h3>
+                                <p class="fecha">
+                                    <span class="date"><time itemprop="datePublished" datetime="2020-11-12 19:53:34">12 nov 2020</time></span>
+                                                                            <span class="date">| Actualizado: <time datetime="2023-06-30 09:01:45">30 jun 2023</time></span>
+                                                                        <br>
+                                    <span class="me-2 comen_ti">Comentarios: 0                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-text" viewBox="0 0 16 16">
+                                            <path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105"></path>
+                                            <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8m0 2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5"></path>
+                                        </svg>
+                                    </span>
+                                </p>
+                                <p class="card-text descripcion">En este artículo haremos una radio FM con el módulo TEA5767 para Arduino y utilizaremos una pantalla LCD para mostrar la frecuencia que estamos escuchando. Para el cambio de frecuencia, vamos a utilizar un potenciómetro lineal que después cambiaremos por…</p>
+                            </div>
+                            <div class="card-footer text-body-secondary">
+                                <a href="https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-una-radio-fm-con-arduino-y-el-modulo-tea5767" aria-label="#"> <b>Leer más »</b></a>
+                            </div>
+                        </div>
+                    </div> <!-- fin columna -->
+                                                        <div class="col-md-6 col-lg-3">
+                        <div class="card tope">
+
+                            <figure>
+                                <a href="https://eloctavobit.com/proyectos-tutoriales-arduino/ejemplos-con-entradas-digitales-pulsadores" aria-label="Las entradas digitales en Arduino. Los pulsadores.">
+                                    <img src="./Coche-robot controlado por bluetooth con Arduino UNO_files/1685691885_2173143d15c5d09fc19e.webp" class="card-img-top img-fluid" loading="lazy" width="800" height="500" alt="Pulsadores para Arduino">
+                                    <figcaption>Las entradas digitales en Arduino. Los pulsadores.</figcaption>
+                                </a>
+                            </figure>
+
+                            <div class="card-body">
+                                <h3 class="card-title fs-5"><a href="https://eloctavobit.com/proyectos-tutoriales-arduino/ejemplos-con-entradas-digitales-pulsadores">Las entradas digitales en Arduino. Los pulsadores.</a></h3>
+                                <p class="fecha">
+                                    <span class="date"><time itemprop="datePublished" datetime="2020-05-27 10:33:49">27 may 2020</time></span>
+                                                                            <span class="date">| Actualizado: <time datetime="2023-06-30 09:54:42">30 jun 2023</time></span>
+                                                                        <br>
+                                    <span class="me-2 comen_ti">Comentarios: 0                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-text" viewBox="0 0 16 16">
+                                            <path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105"></path>
+                                            <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8m0 2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5"></path>
+                                        </svg>
+                                    </span>
+                                </p>
+                                <p class="card-text descripcion">En muchos de los proyectos con Arduino nos encontraremos un pulsador o botón. Aquí veremos cómo hacer para utilizar correctamente sus señales. Primero, explicaremos qué son las resistencias pull-up y pull-down, montaremos un circuito eléctrico con un pulsador y una…</p>
+                            </div>
+                            <div class="card-footer text-body-secondary">
+                                <a href="https://eloctavobit.com/proyectos-tutoriales-arduino/ejemplos-con-entradas-digitales-pulsadores" aria-label="#"> <b>Leer más »</b></a>
+                            </div>
+                        </div>
+                    </div> <!-- fin columna -->
+                                                        <div class="col-md-6 col-lg-3">
+                        <div class="card tope">
+
+                            <figure>
+                                <a href="https://eloctavobit.com/proyectos-tutoriales-arduino/crear-una-alarma-con-el-modulo-ky-008-una-fotoresistencia-y-un-buzzer" aria-label="Crear una alarma con el módulo KY-008, una fotoresistencia y un buzzer">
+                                    <img src="./Coche-robot controlado por bluetooth con Arduino UNO_files/1685896303_119c40ff55d237af9822.webp" class="card-img-top img-fluid" loading="lazy" width="800" height="500" alt="Crear una alarma con el módulo KY-008, una fotoresistencia y un buzzer">
+                                    <figcaption>Alarma con Arduino</figcaption>
+                                </a>
+                            </figure>
+
+                            <div class="card-body">
+                                <h3 class="card-title fs-5"><a href="https://eloctavobit.com/proyectos-tutoriales-arduino/crear-una-alarma-con-el-modulo-ky-008-una-fotoresistencia-y-un-buzzer">Crear una alarma con el módulo KY-008, una fotoresistencia y un buzzer</a></h3>
+                                <p class="fecha">
+                                    <span class="date"><time itemprop="datePublished" datetime="2021-01-13 11:27:40">13 ene 2021</time></span>
+                                                                            <span class="date">| Actualizado: <time datetime="2024-02-12 10:43:33">12 feb 2024</time></span>
+                                                                        <br>
+                                    <span class="me-2 comen_ti">Comentarios: 0                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-text" viewBox="0 0 16 16">
+                                            <path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105"></path>
+                                            <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8m0 2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5"></path>
+                                        </svg>
+                                    </span>
+                                </p>
+                                <p class="card-text descripcion">En esta práctica haremos una alarma que se conectará en el momento en que el haz de luz del puntero no llegue a la fotorresistencia. Haremos que la señal de alarma nos avise por el monitor serial y nos de un aviso sonoro</p>
+                            </div>
+                            <div class="card-footer text-body-secondary">
+                                <a href="https://eloctavobit.com/proyectos-tutoriales-arduino/crear-una-alarma-con-el-modulo-ky-008-una-fotoresistencia-y-un-buzzer" aria-label="#"> <b>Leer más »</b></a>
+                            </div>
+                        </div>
+                    </div> <!-- fin columna -->
+                                                        <div class="col-md-6 col-lg-3">
+                        <div class="card tope">
+
+                            <figure>
+                                <a href="https://eloctavobit.com/proyectos-tutoriales-arduino/robot-arduino-controlado-por-bluetooth-con-4-ruedas" aria-label="Robot Arduino controlado por bluetooth, con 4 ruedas">
+                                    <img src="./Coche-robot controlado por bluetooth con Arduino UNO_files/1685951961_819e08d4cedf90e79486.webp" class="card-img-top img-fluid" loading="lazy" width="800" height="500" alt="Robot Arduino 4 ruedas">
+                                    <figcaption>Robot Arduino controlado por bluetooth, con 4 ruedas</figcaption>
+                                </a>
+                            </figure>
+
+                            <div class="card-body">
+                                <h3 class="card-title fs-5"><a href="https://eloctavobit.com/proyectos-tutoriales-arduino/robot-arduino-controlado-por-bluetooth-con-4-ruedas">Robot Arduino controlado por bluetooth, con 4 ruedas</a></h3>
+                                <p class="fecha">
+                                    <span class="date"><time itemprop="datePublished" datetime="2021-06-25 17:59:48">25 jun 2021</time></span>
+                                                                            <span class="date">| Actualizado: <time datetime="2025-05-27 05:55:39">27 may 2025</time></span>
+                                                                        <br>
+                                    <span class="me-2 comen_ti">Comentarios: 2                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-text" viewBox="0 0 16 16">
+                                            <path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105"></path>
+                                            <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8m0 2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5"></path>
+                                        </svg>
+                                    </span>
+                                </p>
+                                <p class="card-text descripcion">En un artículo anterior construimos un robot arduino controlado por bluetooth con dos ruedas y el módulo controlador L298N, en este caso utilizaremos el controlador de motor L293D que permite la conexión de 4 motores reductores.
+Es interesante que antes…</p>
+                            </div>
+                            <div class="card-footer text-body-secondary">
+                                <a href="https://eloctavobit.com/proyectos-tutoriales-arduino/robot-arduino-controlado-por-bluetooth-con-4-ruedas" aria-label="#"> <b>Leer más »</b></a>
+                            </div>
+                        </div>
+                    </div> <!-- fin columna -->
+                            </div>
+        </section>
+        <!-- fin articulos relacionados -->
+
+    
+                        <!--Comentarios -->
+            <div class="offcanvas offcanvas-end comentario" tabindex="-1" id="-offcanvasComent" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header">
+                    <h5 id="offcanvasRightLabel" class="titulo-coment d-flex align-items-center">Comentarios - <span class="me-2">4</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-text" viewBox="0 0 16 16">
+                            <path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105"></path>
+                            <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8m0 2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5"></path>
+                        </svg>
+                    </h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+
+                    <div class="col-lg-11 frm-comentario">
+                        <div class="card card-body">
+                            <p>Deja un comentario</p>
+                            <p>Tu dirección de correo electrónico no será publicada. Los campos obligatorios están marcados con *</p>
+                            <form action="https://eloctavobit.com/comentarios" method="post">
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre * </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="nombre" name="nombre" value="" required="">
+                                        <span class="error text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Email *</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" id="email" name="email" value="" required="">
+                                        <span class="error text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Comentario *</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" id="comentario" name="comentario" rows="3" required=""></textarea>
+                                        <span class="error text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button class="btn btn-primary me-md-2" type="submit">Enviar</button>
+                                </div>
+                                <input type="hidden" name="comentaria_post_id" id="comentaria_post_id" value="82">
+                                <input type="hidden" name="comentario_padre" id="comentario_padre" value="0">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-11 comentarios">
+                        <!-- COMENTARIOS -->
+
+                        <div class="py-4 comenta"><div class="d-flex align-items-center justify-content-between pb-2 mb-1">
+    <div class="d-flex align-items-center me-3 nombre">
+
+        <div class="ps-3">
+            <div class="mb-0 quien">FAREEH TALHA BUTT DAR</div>
+            <span class="fs-sm text-muted fechac">14 February, 2021</span>
+        </div>
+    </div>
+</div>
+<p class="mb-0">He copiado tal cual todo. Pero cuando lo quiero funcionar con el móvil, hay un tengo un erro, es decir, que me empareja correctamente el bluetooth con el hc c6 pero al presionar los botones no funciona el coche</p>
+<p class="botor">
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-coche-controlado-por-bluetooth-arduino-aplicacion-android#resp_7" role="button" aria-expanded="false" aria-controls="resp_7">
+        Responder
+    </a>
+</p>
+
+<div class="collapse" id="resp_7">
+    <div class="card card-body">
+        <form action="https://eloctavobit.com/comentarios" method="post">
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nombre" name="nombre" required="">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" name="email" required="">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Comentario</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="comentario" name="comentario" rows="3" required=""></textarea>
+                </div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-primary me-md-2" type="submit">Enviar</button>
+                <a class="btn btn-primary cancela" data-bs-toggle="collapse" href="https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-coche-controlado-por-bluetooth-arduino-aplicacion-android#resp_7" role="button" aria-expanded="false" aria-controls="resp_7">Cancelar</a>
+            </div>
+            <input type="hidden" name="comentaria_post_id" id="comentaria_post_id" value="82">
+            <input type="hidden" name="comentario_padre" id="comentario_padre" value="7">
+        </form>
+    </div>
+</div></div><hr class="my-2"><div class="py-4 comenta"><div class="d-flex align-items-center justify-content-between pb-2 mb-1">
+    <div class="d-flex align-items-center me-3 nombre">
+
+        <div class="ps-3">
+            <div class="mb-0 quien">Alfredo Sanchez</div>
+            <span class="fs-sm text-muted fechac"> 5 May, 2021</span>
+        </div>
+    </div>
+</div>
+<p class="mb-0">Buen día. Me pudieran apoyar. Tengo problemas ya pude vincular módulo Bluetooth y en la aplicación si lo reconoce pero no hace los movimientos hacia los servomotores</p>
+<p class="botor">
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-coche-controlado-por-bluetooth-arduino-aplicacion-android#resp_11" role="button" aria-expanded="false" aria-controls="resp_11">
+        Responder
+    </a>
+</p>
+
+<div class="collapse" id="resp_11">
+    <div class="card card-body">
+        <form action="https://eloctavobit.com/comentarios" method="post">
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nombre" name="nombre" required="">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" name="email" required="">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Comentario</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="comentario" name="comentario" rows="3" required=""></textarea>
+                </div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-primary me-md-2" type="submit">Enviar</button>
+                <a class="btn btn-primary cancela" data-bs-toggle="collapse" href="https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-coche-controlado-por-bluetooth-arduino-aplicacion-android#resp_11" role="button" aria-expanded="false" aria-controls="resp_11">Cancelar</a>
+            </div>
+            <input type="hidden" name="comentaria_post_id" id="comentaria_post_id" value="82">
+            <input type="hidden" name="comentario_padre" id="comentario_padre" value="11">
+        </form>
+    </div>
+</div></div><hr class="my-2"><div class="py-4 comenta"><div class="d-flex align-items-center justify-content-between pb-2 mb-1">
+    <div class="d-flex align-items-center me-3 nombre">
+
+        <div class="ps-3">
+            <div class="mb-0 quien">Arturo</div>
+            <span class="fs-sm text-muted fechac">17 July, 2021</span>
+        </div>
+    </div>
+</div>
+<p class="mb-0">Hola amigos del octavobit!, escribo este comentario porque después de estar muchas horas buscando como hacer mi proyecto de mi primer robot con Arduino ustedes fueron los únicos que pudieron ayudarme, de verdad se los agradezco mucho, gracias por compartir su conocimiento. Saludos desde Puerto Varas, Chile.</p>
+<p class="botor">
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-coche-controlado-por-bluetooth-arduino-aplicacion-android#resp_12" role="button" aria-expanded="false" aria-controls="resp_12">
+        Responder
+    </a>
+</p>
+
+<div class="collapse" id="resp_12">
+    <div class="card card-body">
+        <form action="https://eloctavobit.com/comentarios" method="post">
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nombre" name="nombre" required="">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" name="email" required="">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Comentario</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="comentario" name="comentario" rows="3" required=""></textarea>
+                </div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-primary me-md-2" type="submit">Enviar</button>
+                <a class="btn btn-primary cancela" data-bs-toggle="collapse" href="https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-coche-controlado-por-bluetooth-arduino-aplicacion-android#resp_12" role="button" aria-expanded="false" aria-controls="resp_12">Cancelar</a>
+            </div>
+            <input type="hidden" name="comentaria_post_id" id="comentaria_post_id" value="82">
+            <input type="hidden" name="comentario_padre" id="comentario_padre" value="12">
+        </form>
+    </div>
+</div></div><hr class="my-2"><div class="py-4 comenta"><div class="d-flex align-items-center justify-content-between pb-2 mb-1">
+    <div class="d-flex align-items-center me-3 nombre">
+
+        <div class="ps-3">
+            <div class="mb-0 quien">JL</div>
+            <span class="fs-sm text-muted fechac">27 September, 2021</span>
+        </div>
+    </div>
+</div>
+<p class="mb-0">Muy bueno muchas gracias me adelanto bastante trabajo, ahora solo me falta poner cambio de velocidades para asimilar una caja de cambios</p>
+<p class="botor">
+    <a class="btn btn-primary" data-bs-toggle="collapse" href="https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-coche-controlado-por-bluetooth-arduino-aplicacion-android#resp_14" role="button" aria-expanded="false" aria-controls="resp_14">
+        Responder
+    </a>
+</p>
+
+<div class="collapse" id="resp_14">
+    <div class="card card-body">
+        <form action="https://eloctavobit.com/comentarios" method="post">
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nombre" name="nombre" required="">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" name="email" required="">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Comentario</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="comentario" name="comentario" rows="3" required=""></textarea>
+                </div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-primary me-md-2" type="submit">Enviar</button>
+                <a class="btn btn-primary cancela" data-bs-toggle="collapse" href="https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-coche-controlado-por-bluetooth-arduino-aplicacion-android#resp_14" role="button" aria-expanded="false" aria-controls="resp_14">Cancelar</a>
+            </div>
+            <input type="hidden" name="comentaria_post_id" id="comentaria_post_id" value="82">
+            <input type="hidden" name="comentario_padre" id="comentario_padre" value="14">
+        </form>
+    </div>
+</div></div><hr class="my-2">                        <!-- FIN COMENTARIOS -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- fin comentarios  -->
+            
+
+    <footer class="mt-5">
+    <div class="container-xl">
+        <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-center">
+            <p class="m-0 me-3 align-items-center">
+                <a class="d-block" href="https://eloctavobit.com/">
+                                        <img loading="lazy" class="img-fluid logo-footer" src="./Coche-robot controlado por bluetooth con Arduino UNO_files/logo-octavo-fondo-negro.png" alt="Proyectos, tutoriales y ejemplos para Arduino | El Octavo Bit width=" 400"="" height="145" "="">
+                </a>
+            </p>
+
+            <nav class="nav flex-column flex-md-row align-items-center"><a class="nav-link me-md-2" href="https://eloctavobit.com/arduino">Arduino</a><a class="nav-link me-md-2" href="https://eloctavobit.com/robotica-educativa">Robotica Educativa</a><a class="nav-link me-md-2" href="https://eloctavobit.com/glosario">Glosario</a></nav>            <nav class="d-flex align-items-center aviso"><a class="me-3" href="https://eloctavobit.com/aviso-legal">Aviso legal</a><a class="me-3" href="https://eloctavobit.com/politica-de-cookies">Política de cookies</a><a class="me-3" href="https://dewebidea.com/">Diseño Web</a></nav>
+        </div>
+    </div>
+</footer>
+    <!--MENU LATERAL-->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div>
+            <form class="d-flex frmmenu mb-4 mt-4" action="https://eloctavobit.com/buscar" method="get">
+                <input name="s" id="buscarn" class="form-control me-1" type="search" placeholder="Buscar" aria-label="Buscar">
+                <button class="btn btn-primary" type="submit">Buscar</button>
+            </form>
+        </div>
+        <ul class="list-unstyled ps-0">
+            <li class="mb-1 sin"><a href="https://eloctavobit.com/" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Inicio</a></li>
+            <li class="mb-1"><button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#menu-739" aria-expanded="false">Arduino</button><div class="collapse sub" id="menu-739"><ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><li class="sec"><a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="https://eloctavobit.com/proyectos-tutoriales-arduino">Proyectos para Arduino </a></li><li class="sec"><a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="https://eloctavobit.com/modulos-sensores">Modulos y sensores </a></li><li class="sec"><a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="https://eloctavobit.com/lenguaje-programacion-para-arduino">Lenguaje de programación de Arduino </a></li><li class="sec"><a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="https://eloctavobit.com/librerias-arduino">Librerias Arduino </a></li><li class="sec"><a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="https://eloctavobit.com/placas-de-arduino-oficiales-y-no-oficiales">Placas de Arduino oficiales y no oficiales </a></li><li class="sec"><a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="https://eloctavobit.com/la-tarjeta-arduino-y-el-entorno-de-desarrollo-integrado-ide">La tarjeta Arduino y el entorno de desarrollo integrado (IDE) </a></li></ul></div></li><li class="mb-1"><button class="btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#menu-746" aria-expanded="false">Robotica Educativa</button><div class="collapse sub" id="menu-746"><ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><li class="sec"><a class="link-body-emphasis d-inline-flex text-decoration-none rounded" href="https://eloctavobit.com/robot-mbot-educativo-mblock">MBot </a></li></ul></div></li><li class="mb-1 sin"><a href="https://eloctavobit.com/httpdocs/glosario" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Glosario</a></li>            <li class="border-top my-3"></li>
+
+        </ul>
+    </div>
+</div>
+<!-- FIN MENU LATERAL-->
+    <script src="./Coche-robot controlado por bluetooth con Arduino UNO_files/bootstrap.bundle.min.js.descarga"></script>
+
+    <script src="./Coche-robot controlado por bluetooth con Arduino UNO_files/script.js.descarga" type="text/javascript"></script>
+    <script src="./Coche-robot controlado por bluetooth con Arduino UNO_files/es.js.descarga" id="gdpr-lang-js"></script>
+    <script>
+        gdprCookieNotice({
+            locale: 'es',
+            timeout: 1500,
+            expiration: 30,
+            domain: window.location.hostname,
+            analytics: ['_gat', 'ga'],
+            statement: 'https://eloctavobit.com/politica-de-cookies',
+            implicit: true,
+        });
+    </script><div class="gdpr-cookie-notice">
+  <p class="gdpr-cookie-notice-description">Utilizo cookies propias sólo con finalidad técnica. Puedes consultar cómo gestiono las cookies y cómo puede controlarlas haciendo clic en Configuración de cookies. Aceptas las cookies haciendo clic en el botón de aceptación.</p>
+  <nav class="gdpr-cookie-notice-nav">
+    <a href="https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-coche-controlado-por-bluetooth-arduino-aplicacion-android#" class="gdpr-cookie-notice-nav-item gdpr-cookie-notice-nav-item-settings">Configuración de cookies</a>
+    <a href="https://eloctavobit.com/proyectos-tutoriales-arduino/hacer-coche-controlado-por-bluetooth-arduino-aplicacion-android#" class="gdpr-cookie-notice-nav-item gdpr-cookie-notice-nav-item-accept gdpr-cookie-notice-nav-item-btn">Aceptar cookies</a>
+  </nav>
+</div>
+
+
+    <script type="text/javascript">
+        document.addEventListener('gdprCookiesEnabled', function(e) {
+            if (e.detail.analytics) {
+                console.log('si');
+            } else {
+                console.log('no');
+            }
+        });
+    </script>
+
+    <script src="./Coche-robot controlado por bluetooth con Arduino UNO_files/codigo-box.js.descarga"></script>
+
+
+</body></html>

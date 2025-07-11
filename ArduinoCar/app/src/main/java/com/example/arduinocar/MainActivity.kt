@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         val bluetoothJhr= BluetoothJhr(this,lista_dispositivos)
         bluetoothJhr.EncenderBluetooth()
         lista_dispositivos.setOnItemClickListener { adapterView, view, i, l ->
-            bluetoothJhr.Disp_Seleccionado(view,i,MainActivity2::class.java)
+            bluetoothJhr.Disp_Seleccionado(view,i,ControlActivity::class.java)
         }
     }
 }
